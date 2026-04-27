@@ -1,0 +1,24 @@
+environment: staging
+services:
+  checkout-api:
+    replicas: 1
+    tier: critical
+  auth-gateway:
+    replicas: 1
+    tier: critical
+  inventory-service:
+    replicas: 1
+    tier: critical
+  product-catalog-ui:
+    replicas: 1
+    tier: standard
+  shipping-tracker:
+    replicas: 1
+    tier: standard
+  notification-worker:
+    replicas: 1
+    tier: standard
+feature_flags:
+  new_checkout_flow: true
+  dark_mode: true
+  beta_analytics: true

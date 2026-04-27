@@ -1,0 +1,62 @@
+environment: production
+services:
+  checkout-api:
+    replicas: 3
+    tier: critical
+    dependencies:
+      - auth-gateway
+      - inventory-service
+      - notification-worker
+  auth-gateway:
+    replicas: 3
+    tier: critical
+    dependencies: []
+  inventory-service:
+    replicas: 2
+    tier: critical
+    dependencies:
+      - platform-config
+  product-catalog-ui:
+    replicas: 2
+    tier: standard
+    dependencies:
+      - checkout-api
+  shipping-tracker:
+    replicas: 2
+    tier: standard
+    dependencies:
+      - checkout-api
+      - notification-worker
+  notification-worker:
+    replicas: 2
+    tier: standard
+    dependencies:
+      - email-templates
+  data-pipeline:
+    replicas: 1
+    tier: standard
+    dependencies:
+      - checkout-api
+      - user-analytics
+  user-analytics:
+    replicas: 2
+    tier: standard
+    dependencies: []
+  email-templates:
+    replicas: 1
+    tier: standard
+    dependencies: []
+  image-processor:
+    replicas: 1
+    tier: experimental
+    dependencies: []
+  admin-dashboard:
+    replicas: 1
+    tier: standard
+    dependencies:
+      - checkout-api
+      - user-analytics
+feature_flags:
+  new_checkout_flow: true
+  dark_mode: true
+  beta_analytics: false

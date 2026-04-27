@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Service Manifest",
+  "type": "object",
+  "required": ["name", "version", "team", "tier"],
+  "properties": {
+    "name": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "team": { "type": "string" },
+    "tier": { "enum": ["critical", "standard", "experimental"] },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "ports": {
+      "type": "object",
+      "properties": {
+        "http": { "type": "integer" },
+        "grpc": { "type": "integer" }
+      }
+    }
+  }
+}
